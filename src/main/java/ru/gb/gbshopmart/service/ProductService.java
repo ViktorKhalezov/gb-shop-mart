@@ -11,12 +11,15 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.gb.gbapi.common.enums.Status;
 import ru.gb.gbapi.product.dto.ProductDto;
+import ru.gb.gbshopmart.dao.CategoryDao;
 import ru.gb.gbshopmart.dao.ManufacturerDao;
 import ru.gb.gbshopmart.dao.ProductDao;
+import ru.gb.gbshopmart.entity.Category;
 import ru.gb.gbshopmart.entity.Product;
 import ru.gb.gbshopmart.web.dto.mapper.ProductMapper;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,6 +30,7 @@ import java.util.stream.Collectors;
 public class ProductService {
     private final ProductDao productDao;
     private final ManufacturerDao manufacturerDao;
+    private final CategoryDao categoryDao;
     private final ProductMapper productMapper;
 
     @Transactional(propagation = Propagation.NEVER, isolation = Isolation.DEFAULT)
@@ -87,6 +91,17 @@ public class ProductService {
 
     public List<Product> findAllSortedById(int page, int size) {
         return productDao.findAllByStatus(Status.ACTIVE, PageRequest.of(page, size, Sort.by("id")));
+    }
+
+    public boolean checkManufacturerAndCategories(String manufacturer, Set<CategoryDto> categories) {
+        List<Category> categoriesFromDb = new ArrayList<>();
+        for(CategoryDto category : categories) {
+            Optional<Category> categoryFromDb = categoryDao.findByTitle(category.getTitle());
+            if(categoryFromDb.isPresent()) {
+                categoriesFromDb.add(categoryFromDb.get());
+            }
+        }
+        return manufacturerDao.findByName(manufacturer).isPresent() && categories.size() == categoriesFromDb.size();
     }
 
 }

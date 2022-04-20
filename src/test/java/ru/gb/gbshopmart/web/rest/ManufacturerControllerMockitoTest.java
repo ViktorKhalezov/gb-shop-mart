@@ -10,7 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import ru.gb.gbshopmart.service.ManufacturerService;
-
+import ru.gb.gbapi.manufacturer.dto.ManufacturerDto;
 import java.util.ArrayList;
 import java.util.List;
 
