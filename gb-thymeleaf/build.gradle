@@ -4,15 +4,9 @@ plugins {
     id 'java'
 }
 
-group = 'ru.gb'
-version = '0.0.1-SNAPSHOT'
+group 'ru.gb'
+version '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-}
 
 repositories {
     mavenCentral()
@@ -23,17 +17,18 @@ ext {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
     implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
+
+    implementation files('../lib/ru.gb-api-mart-0.0.7-mart-plain.jar')
     compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
-    implementation files('../lib/ru.gb-api-0.0.7-mart-plain.jar')
 }
 
 dependencyManagement {
@@ -45,3 +40,4 @@ dependencyManagement {
 tasks.named('test') {
     useJUnitPlatform()
 }
+

@@ -1,0 +1,3 @@
+[submodule "gb-thymeleaf/gb-api"]
+	path = gb-thymeleaf/gb-api
+	url = git@github.com:ViktorKhalezov/gb-api.git

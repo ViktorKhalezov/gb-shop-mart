@@ -1,3 +1,3 @@
 spring:
   application:
-    name: ${SPRING_APPLICATION_NAME:gb-shop-mart}
+    name: ${SPRING_APPLICATION_NAME:ru.gb-shop-mart}
